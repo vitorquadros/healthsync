@@ -3,10 +3,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import CustomFormField from '../CustomFormField';
 import { FormFieldType } from '@/@types/formTypes';
+import SubmitButton from '../SubmitButton';
+import { useState } from 'react';
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -15,6 +16,8 @@ const formSchema = z.object({
 });
 
 export function PatientForm() {
+  const [isLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,7 +65,7 @@ export function PatientForm() {
           placeholder="(99) 99999-9999"
         />
 
-        <Button type="submit">Enviar</Button>
+        <SubmitButton isLoading={isLoading}>Comece já</SubmitButton>
       </form>
     </Form>
   );
