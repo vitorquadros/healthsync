@@ -1,6 +1,1 @@
-export const GenderOptions = [
-  'Masculino',
-  'Feminino',
-  'Outro',
-  'Prefiro não dizer',
-];
+export const GenderOptions = ['Masculino', 'Feminino', 'Outro'];
