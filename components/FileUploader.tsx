@@ -11,11 +11,14 @@ interface Props {
 }
 
 const FileUploader = ({ files, onChange }: Props) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    onChange(acceptedFiles);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      onChange(acceptedFiles);
+    },
+    [onChange]
+  );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
   });
 
