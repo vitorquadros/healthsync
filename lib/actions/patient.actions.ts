@@ -12,9 +12,8 @@ import {
   storage,
   users,
 } from '../appwrite.config';
-import { ID, Query } from 'node-appwrite';
+import { ID, Query, InputFile } from 'node-appwrite';
 import { parseStringify } from '../utils';
-import { InputFile } from 'node-appwrite/file';
 
 export const createUser = async (user: CreateUserParams) => {
   try {
@@ -26,7 +25,6 @@ export const createUser = async (user: CreateUserParams) => {
       user.name
     );
 
-    console.log(newUser);
     return parseStringify(newUser);
   } catch (error: any) {
     if (error && error?.code === 409) {
@@ -53,7 +51,7 @@ export const registerPatient = async ({
     let file;
 
     if (identificationDocument) {
-      const inputFile = InputFile.fromBuffer(
+      const inputFile = InputFile.fromBlob(
         identificationDocument?.get('blobFile') as Blob,
         identificationDocument?.get('fileName') as string
       );
