@@ -13,10 +13,11 @@ import { useRouter } from 'next/navigation';
 import { createUser } from '@/lib/actions/patient.actions';
 import { User } from '@/@types';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Doctors, GenderOptions } from '@/constants';
+import { Doctors, GenderOptions, IdentificationTypes } from '@/constants';
 import { Label } from '../ui/label';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
+import FileUploader from '../FileUploader';
 
 export function RegisterForm({ user }: { user: User }) {
   const router = useRouter();
@@ -183,7 +184,11 @@ export function RegisterForm({ user }: { user: User }) {
           placeholder="Selecione um médico"
         >
           {Doctors.map((doctor) => (
-            <SelectItem key={doctor.name} value={doctor.name}>
+            <SelectItem
+              key={doctor.name}
+              value={doctor.name}
+              className="cursor-pointer"
+            >
               <div className="flex cursor-pointer items-center gap-2">
                 <Image
                   src={doctor.image}
@@ -251,6 +256,46 @@ export function RegisterForm({ user }: { user: User }) {
             placeholder="Apendicectomia, Endoscopia"
           />
         </div>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Identificação e verificação</h2>
+          </div>
+        </section>
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.SELECT}
+          name="identificationType"
+          label="Tipo de identificação"
+          placeholder="Selecione um tipo de identificação"
+        >
+          {IdentificationTypes.map((type) => (
+            <SelectItem key={type} value={type} className="cursor-pointer">
+              {type}
+            </SelectItem>
+          ))}
+        </CustomFormField>
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.INPUT}
+          name="identificationNumber"
+          label="Número da identificação"
+          placeholder="123456789"
+        />
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldType.SKELETON}
+          name="identificationDocument"
+          label="Cópia escaneada do documento de identificação"
+          renderSkeleton={(field) => (
+            <FormControl>
+              <FileUploader files={field.value} onChange={field.onChange} />
+            </FormControl>
+          )}
+        />
 
         <SubmitButton isLoading={isLoading}>Comece já</SubmitButton>
       </form>
