@@ -19,6 +19,7 @@ import { E164Number } from 'libphonenumber-js/core';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Select, SelectContent, SelectTrigger, SelectValue } from './ui/select';
+import { Textarea } from './ui/textarea';
 
 interface Props {
   control: Control<any>;
@@ -44,6 +45,7 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
     showTimeSelect,
     dateFormat,
     renderSkeleton,
+    disabled,
   } = props;
 
   switch (fieldType) {
@@ -121,6 +123,17 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
               {props.children}
             </SelectContent>
           </Select>
+        </FormControl>
+      );
+    case FormFieldType.TEXTAREA:
+      return (
+        <FormControl>
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            className="shad-textArea"
+            disabled={disabled}
+          />
         </FormControl>
       );
     default:
