@@ -40,6 +40,8 @@ export function AppointmentForm({ userId, patientId, type }: Props) {
     },
   });
 
+  console.log(patientId);
+
   async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
     setIsLoading(true);
 
@@ -81,6 +83,8 @@ export function AppointmentForm({ userId, patientId, type }: Props) {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
