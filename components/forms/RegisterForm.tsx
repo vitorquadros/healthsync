@@ -203,8 +203,8 @@ export function RegisterForm({ user }: { user: User }) {
           control={form.control}
           fieldType={FormFieldType.SELECT}
           name="primaryPhysician"
-          label="Médico principal"
-          placeholder="Selecione um médico"
+          label="Médico(a) principal"
+          placeholder="Selecione um médico(a)"
         >
           {Doctors.map((doctor) => (
             <SelectItem
