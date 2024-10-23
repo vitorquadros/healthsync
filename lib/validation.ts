@@ -46,7 +46,7 @@ export const PatientFormValidation = z.object({
       (emergencyContactNumber) => /^\+\d{10,15}$/.test(emergencyContactNumber),
       'Número de telefone inválido'
     ),
-  primaryPhysician: z.string().min(2, 'Selecione um médico'),
+  primaryPhysician: z.string().min(2, 'Selecione um médico(a)'),
   insuranceProvider: z
     .string()
     .min(2, 'O nome da seguradora deve ter pelo menos 2 caracteres')
@@ -83,7 +83,7 @@ export const PatientFormValidation = z.object({
 });
 
 export const CreateAppointmentSchema = z.object({
-  primaryPhysician: z.string().min(2, 'Selecione pelo menos um médico'),
+  primaryPhysician: z.string().min(2, 'Selecione pelo um médico(a)'),
   schedule: z.coerce.date(),
   reason: z
     .string()
@@ -94,7 +94,7 @@ export const CreateAppointmentSchema = z.object({
 });
 
 export const ScheduleAppointmentSchema = z.object({
-  primaryPhysician: z.string().min(2, 'Selecione pelo menos um médico'),
+  primaryPhysician: z.string().min(2, 'Selecione um médico(a)'),
   schedule: z.coerce.date(),
   reason: z.string().optional(),
   note: z.string().optional(),
@@ -102,7 +102,7 @@ export const ScheduleAppointmentSchema = z.object({
 });
 
 export const CancelAppointmentSchema = z.object({
-  primaryPhysician: z.string().min(2, 'Selecione pelo menos um médico'),
+  primaryPhysician: z.string().min(2, 'Selecione um médico(a)'),
   schedule: z.coerce.date(),
   reason: z.string().optional(),
   note: z.string().optional(),
