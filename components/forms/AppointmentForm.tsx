@@ -40,8 +40,6 @@ export function AppointmentForm({ userId, patientId, type }: Props) {
     },
   });
 
-  console.log(patientId);
-
   async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
     setIsLoading(true);
 
@@ -110,7 +108,7 @@ export function AppointmentForm({ userId, patientId, type }: Props) {
         <section className="mb-12 space-y-4">
           <h1 className="header">Nova consulta</h1>
           <p className="text-dark-700">
-            Agende uma nova consulta em 10 segundos
+            Solicite o agendamento de uma nova consulta em 10 segundos
           </p>
         </section>
 
