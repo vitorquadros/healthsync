@@ -36,6 +36,7 @@ const SuccessPage = async ({
             height={300}
             width={280}
             alt="Sucesso"
+            unoptimized
           />
 
           <h2 className="header mb-6 max-w-[600px] text-center">
