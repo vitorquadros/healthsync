@@ -68,7 +68,7 @@ export function RegisterForm({ user }: { user: User }) {
       // @ts-expect-error allergies is optional, ignore error
       const patient = await registerPatient(patientData);
 
-      if (patient) router.push(`/patients/${patient.$id}/new-appointment`);
+      if (patient) router.push(`/patients/${user.$id}/new-appointment`);
     } catch (error) {
       console.error(error);
     } finally {
