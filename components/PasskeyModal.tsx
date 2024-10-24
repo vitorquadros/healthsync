@@ -27,10 +27,10 @@ const PasskeyModal = () => {
   const router = useRouter();
   const path = usePathname();
 
-  const encryptedKey =
-    typeof window !== 'undefined'
-      ? window.localStorage.getItem('accessKey')
-      : null;
+  const encryptedKey = document.cookie
+    .split('; ')
+    .find((cookie) => cookie.startsWith('accessKey='))
+    ?.split('=')[1];
 
   useEffect(() => {
     if (!path) return;
@@ -52,7 +52,7 @@ const PasskeyModal = () => {
 
     if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passkey);
-      localStorage.setItem('accessKey', encryptedKey);
+      document.cookie = `accessKey=${encryptedKey}; path=/;`;
       setIsOpen(false);
     } else {
       setError('Chave de acesso inválida. Tente novamente.');
