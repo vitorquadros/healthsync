@@ -8,7 +8,7 @@ import Image from 'next/image';
 import AppointmentModal from '../AppointmentModal';
 import { Appointment } from '@/@types/appwrite.types';
 
-export const columns: ColumnDef<Appointment>[] = [
+export const appointmentColumns: ColumnDef<Appointment>[] = [
   {
     header: 'ID',
     cell: ({ row }) => <p className="text-14-medium">{row.index + 1}</p>,

@@ -1,6 +1,6 @@
 import { DataTable } from '@/components/table/DataTable';
 import StatCard from '@/components/StatCard';
-import { columns } from '@/components/table/columns';
+import { appointmentColumns } from '@/components/table/appointmentColumns';
 import { getRecentAppointmentsList } from '@/lib/actions/appointment.actions';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -57,7 +57,7 @@ const AdminPage = async () => {
           />
         </section>
 
-        <DataTable data={appointments.documents} columns={columns} />
+        <DataTable data={appointments.documents} columns={appointmentColumns} />
       </main>
     </div>
   );
