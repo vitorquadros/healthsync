@@ -176,7 +176,7 @@ export function AppointmentForm(props: Props) {
               name="schedule"
               label="Data da consulta"
               showTimeSelect
-              dateFormat="dd/MM/yyyy h:mm aa"
+              dateFormat="dd/MM/yyyy, HH:mm"
             />
 
             <div className="flex flex-col gap-6 xl:flex-row">

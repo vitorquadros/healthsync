@@ -16,11 +16,12 @@ import Image from 'next/image';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { E164Number } from 'libphonenumber-js/core';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Select, SelectContent, SelectTrigger, SelectValue } from './ui/select';
 import { Textarea } from './ui/textarea';
 import { Checkbox } from './ui/checkbox';
+import ptBR from 'date-fns/locale/pt-BR';
 
 interface Props {
   control: Control<any>;
@@ -38,6 +39,8 @@ interface Props {
 }
 
 const RenderField = ({ field, props }: { field: any; props: Props }) => {
+  registerLocale('pt-BR', ptBR as any);
+
   const {
     iconSrc,
     iconAlt,
@@ -104,6 +107,7 @@ const RenderField = ({ field, props }: { field: any; props: Props }) => {
               selected={field.value}
               onChange={(date) => field.onChange(date)}
               dateFormat={dateFormat ?? 'dd/MM/yyyy'}
+              locale="pt-BR"
               showTimeSelect={showTimeSelect ?? false}
               timeInputLabel="Hora:"
               wrapperClassName="date-picker"
