@@ -4,6 +4,7 @@ import { columns } from '@/components/table/columns';
 import { getRecentAppointmentsList } from '@/lib/actions/appointment.actions';
 import Image from 'next/image';
 import Link from 'next/link';
+import ActiveLink from '@/components/ActiveLink';
 
 const AdminPage = async () => {
   const appointments = await getRecentAppointmentsList();
@@ -21,7 +22,10 @@ const AdminPage = async () => {
           />
         </Link>
 
-        <p className="text-16-semibold">Admin Dashboard</p>
+        <div className="flex gap-12 items-center">
+          <ActiveLink href="/admin/doctors" label="Médicos(as)" />
+          <ActiveLink href="/admin" label="Admin Dashboard" />
+        </div>
       </header>
 
       <main className="admin-main">
