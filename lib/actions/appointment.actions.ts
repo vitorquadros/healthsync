@@ -104,7 +104,9 @@ export const updateAppointment = async ({
     const smsMessage = `
     Olá, ${
       type === 'schedule'
-        ? `Sua consulta na HealthSync foi confirmada para ${
+        ? `Sua consulta na HealthSync com Dr. ${
+            appointment.primaryPhysician
+          } foi confirmada para ${
             formatDateTime(appointment.schedule!).dateDay
           } às ${formatDateTime(appointment.schedule!).timeOnly}.`
         : `Lamentamos informar que sua consulta na HealthSync foi cancelada pelo seguinte motivo: ${appointment.cancellationReason}`
