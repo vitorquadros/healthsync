@@ -83,7 +83,7 @@ export function RegisterForm({ user }: { user: User }) {
         className="space-y-12 flex-1"
       >
         <section className="space-y-4">
-          <h1 className="header">Bem vindo(a)!</h1>
+          <h1 className="header">Bem-vindo(a)!</h1>
           <p className="text-dark-700">Nos conte mais sobre você.</p>
         </section>
 
