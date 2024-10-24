@@ -5,8 +5,9 @@ import {
   APPOINTMENT_COLLECTION_ID,
   DATABASE_ID,
   databases,
+  messaging,
 } from '../appwrite.config';
-import { parseStringify } from '../utils';
+import { formatDateTime, parseStringify } from '../utils';
 import { CreateAppointmentParams, UpdateAppointmentParams } from '@/@types';
 import { Appointment } from '@/@types/appwrite.types';
 import { revalidatePath } from 'next/cache';
@@ -87,9 +88,7 @@ export const getRecentAppointmentsList = async () => {
 export const updateAppointment = async ({
   appointmentId,
   appointment,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   userId,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   type,
 }: UpdateAppointmentParams) => {
   try {
@@ -102,10 +101,35 @@ export const updateAppointment = async ({
 
     if (!updateAppointment) throw new Error('Appointment not found');
 
-    // TODO: SMS notification
+    const smsMessage = `
+    Olá, ${
+      type === 'schedule'
+        ? `Sua consulta na HealthSync foi confirmada para ${
+            formatDateTime(appointment.schedule!).dateDay
+          } às ${formatDateTime(appointment.schedule!).timeOnly}.`
+        : `Lamentamos informar que sua consulta na HealthSync foi cancelada pelo seguinte motivo: ${appointment.cancellationReason}`
+    }
+    `;
+
+    await sendSMSNotification(userId, smsMessage);
 
     revalidatePath('/admin');
     return parseStringify(updatedAppointment);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const sendSMSNotification = async (userId: string, content: string) => {
+  try {
+    const message = await messaging.createSms(
+      ID.unique(),
+      content,
+      [],
+      [userId]
+    );
+
+    return parseStringify(message);
   } catch (error) {
     console.error(error);
   }
