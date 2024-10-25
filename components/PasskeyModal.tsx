@@ -52,7 +52,7 @@ const PasskeyModal = () => {
 
     if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passkey);
-      document.cookie = `accessKey=${encryptedKey}; path=/;`;
+      document.cookie = `accessKey=${encryptedKey}; path=/; max-age=432000000`;
       setIsOpen(false);
     } else {
       setError('Chave de acesso inválida. Tente novamente.');
