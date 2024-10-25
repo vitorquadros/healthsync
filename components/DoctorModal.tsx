@@ -21,18 +21,18 @@ interface Props {
 const DoctorModal = ({ doctor, type }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const translatedType = type === 'update' ? 'Atualizar' : 'Excluir';
+  const translatedType = type === 'update' ? 'Editar' : 'Excluir';
   const description =
     type === 'update'
       ? 'Por favor, preencha os seguintes detalhes para atualizar os dados do médico(a)'
-      : 'Tem certeza que deseja excluir este médico(a)?';
+      : 'Tem certeza que deseja excluir este médico(a) permanentemente?';
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className={`${type === 'update' && 'text-green-500'}`}
+          className={`${type === 'update' ? 'text-green-500' : 'text-red-500'}`}
         >
           {translatedType}
         </Button>
@@ -43,9 +43,7 @@ const DoctorModal = ({ doctor, type }: Props) => {
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
-        {type === 'update' && (
-          <DoctorForm type={type} doctor={doctor} setIsOpen={setIsOpen} />
-        )}
+        <DoctorForm type={type} doctor={doctor} setIsOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   );
