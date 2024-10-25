@@ -21,6 +21,11 @@ declare interface CreateDoctorParams {
   avatar: FormData;
 }
 
+declare interface UpdateDoctorParams {
+  doctorId: string;
+  doctor: CreateDoctorParams;
+}
+
 declare interface User extends CreateUserParams {
   $id: string;
 }
