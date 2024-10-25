@@ -1,9 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ActiveLink from '@/components/ActiveLink';
+import { doctorColumns } from '@/components/table/doctorColumns';
+import { DataTable } from '@/components/table/DataTable';
+import { getDoctorsList } from '@/lib/actions/doctor.actions';
+import { Button } from '@/components/ui/button';
 
 const DoctorsPage = async () => {
-  // const doctors = await getDoctors()
+  const doctors = await getDoctorsList();
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -30,7 +34,7 @@ const DoctorsPage = async () => {
           <p className="text-dark-700">Gerencie os profissionais cadastrados</p>
         </section>
 
-        {/* <DataTable data={appointments.documents} columns={columns} /> */}
+        <DataTable data={doctors.documents} columns={doctorColumns} />
       </main>
     </div>
   );
