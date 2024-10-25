@@ -14,6 +14,32 @@ export const UserFormValidation = z.object({
     ),
 });
 
+export const DoctorFormValidation = z.object({
+  name: z
+    .string()
+    .min(2, 'O nome deve ter pelo menos 2 caracteres')
+    .max(100, 'O nome deve ter no máximo 100 caracteres'),
+  avatar: z
+    .custom<File[]>()
+    .refine((files) => files.length > 0, {
+      message: 'A foto de perfil é obrigatória.',
+    })
+    .refine(
+      (files) =>
+        files.every((file) =>
+          ['image/png', 'image/jpg', 'image/jpeg', 'image/svg+xml'].includes(
+            file.type
+          )
+        ),
+      {
+        message: 'Apenas arquivos .png, .jpg, .jpeg e .svg são permitidos',
+      }
+    )
+    .refine((files) => files.every((file) => file.size <= 10 * 1024 * 1024), {
+      message: 'O tamanho máximo permitido para o arquivo é 10 MB',
+    }),
+});
+
 export const PatientFormValidation = z.object({
   name: z
     .string()
