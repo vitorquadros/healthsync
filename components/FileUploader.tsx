@@ -8,9 +8,10 @@ import { useDropzone } from 'react-dropzone';
 interface Props {
   files: File[] | undefined;
   onChange: (files: File[]) => void;
+  multiple?: boolean;
 }
 
-const FileUploader = ({ files, onChange }: Props) => {
+const FileUploader = ({ files, onChange, multiple = false }: Props) => {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       onChange(acceptedFiles);
@@ -20,12 +21,17 @@ const FileUploader = ({ files, onChange }: Props) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    multiple,
   });
+
+  const areFilesImages = files
+    ? files?.filter((file) => file.type.startsWith('image')).length > 0
+    : false;
 
   return (
     <div {...getRootProps()} className="file-upload">
       <input {...getInputProps()} />
-      {files && files?.length > 0 ? (
+      {files && files?.length > 0 && areFilesImages ? (
         <Image
           src={convertFileToUrl(files[0])}
           width={1000}
