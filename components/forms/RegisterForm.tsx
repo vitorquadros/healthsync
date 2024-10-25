@@ -315,7 +315,11 @@ export function RegisterForm({ user }: { user: User }) {
           label="Cópia escaneada do documento de identificação"
           renderSkeleton={(field) => (
             <FormControl>
-              <FileUploader files={field.value} onChange={field.onChange} />
+              <FileUploader
+                files={field.value}
+                onChange={field.onChange}
+                multiple
+              />
             </FormControl>
           )}
         />
