@@ -36,6 +36,7 @@ export const doctorColumns: ColumnDef<Doctor>[] = [
       return (
         <div className="flex gap-1">
           <DoctorModal doctor={data} type="update" />
+          <DoctorModal doctor={data} type="delete" />
         </div>
       );
     },
