@@ -7,13 +7,20 @@ import { Form, FormControl } from '@/components/ui/form';
 import CustomFormField from '../CustomFormField';
 import { FormFieldType } from '@/@types/formTypes';
 import SubmitButton from '../SubmitButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DoctorFormValidation } from '@/lib/validation';
 import { useRouter } from 'next/navigation';
 import FileUploader from '../FileUploader';
-import { createDoctor } from '@/lib/actions/doctor.actions';
+import { createDoctor, updateDoctor } from '@/lib/actions/doctor.actions';
+import { Doctor } from '@/@types/appwrite.types';
 
-export function DoctorForm() {
+interface Props {
+  type?: 'create' | 'update';
+  doctor?: Doctor;
+  setIsOpen?: (state: boolean) => void;
+}
+
+export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -21,10 +28,27 @@ export function DoctorForm() {
   const form = useForm<z.infer<typeof DoctorFormValidation>>({
     resolver: zodResolver(DoctorFormValidation),
     defaultValues: {
-      name: '',
+      name: doctor?.name ?? '',
       avatar: [],
     },
   });
+
+  async function createFileFromUrl(url: string, filename: string) {
+    const response = await fetch(url);
+
+    const blob = await response.blob();
+
+    const file = new File([blob], filename, { type: blob.type });
+
+    return file;
+  }
+
+  useEffect(() => {
+    if (!doctor) return;
+    createFileFromUrl(doctor.avatar, 'avatar').then((file) => {
+      form.setValue('avatar', [file]);
+    });
+  }, [doctor, form]);
 
   async function onSubmit({
     name,
@@ -41,14 +65,32 @@ export function DoctorForm() {
     formData.append('fileName', avatar[0].name);
 
     try {
-      const doctorData = {
-        name,
-        avatar: formData,
-      };
+      let doctorData;
+      if (type === 'create') {
+        doctorData = {
+          name,
+          avatar: formData,
+        };
 
-      const doctor = await createDoctor(doctorData);
+        const doctor = await createDoctor(doctorData);
 
-      if (doctor) router.push('/admin/doctors');
+        if (doctor) router.push('/admin/doctors');
+      } else if (type === 'update' && doctor) {
+        doctorData = {
+          doctorId: doctor.$id,
+          doctor: {
+            name,
+            avatar: formData,
+          },
+        };
+
+        const updatedDoctor = await updateDoctor(doctorData);
+
+        if (updatedDoctor) {
+          if (setIsOpen) setIsOpen(false);
+          form.reset();
+        }
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -56,15 +98,19 @@ export function DoctorForm() {
     }
   }
 
+  const translatedAction = type === 'create' ? 'Cadastrar' : 'Atualizar';
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
-        <section className="mb-12 space-y-4">
-          <h1 className="header">Cadastro de médico(a)</h1>
-          <p className="text-dark-700">
-            Cadastre um novo profissional no HealthSync.
-          </p>
-        </section>
+        {type === 'create' && (
+          <section className="mb-12 space-y-4">
+            <h1 className="header">Cadastro de médico(a)</h1>
+            <p className="text-dark-700">
+              Cadastre um novo profissional no HealthSync.
+            </p>
+          </section>
+        )}
 
         <CustomFormField
           control={form.control}
@@ -88,7 +134,7 @@ export function DoctorForm() {
           )}
         />
 
-        <SubmitButton isLoading={isLoading}>Cadastrar</SubmitButton>
+        <SubmitButton isLoading={isLoading}>{translatedAction}</SubmitButton>
       </form>
     </Form>
   );
