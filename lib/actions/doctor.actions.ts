@@ -34,6 +34,7 @@ export const createDoctor = async (doctor: CreateDoctorParams) => {
       }
     );
 
+    revalidatePath('/admin/doctors');
     return parseStringify(newDoctor);
   } catch (error) {
     console.error(error);
@@ -84,6 +85,31 @@ export const updateDoctor = async ({
 
     revalidatePath('/admin/doctors');
     return parseStringify(updatedDoctor);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteDoctor = async (doctorId: string) => {
+  try {
+    const doctor = await databases.getDocument(
+      DATABASE_ID!,
+      DOCTOR_COLLECTION_ID!,
+      doctorId
+    );
+
+    if (!doctor) throw new Error('Doctor not found');
+
+    await storage.deleteFile(BUCKET_ID!, parseStringify(doctor).avatarId);
+
+    const deletedDoctor = await databases.deleteDocument(
+      DATABASE_ID!,
+      DOCTOR_COLLECTION_ID!,
+      doctorId
+    );
+
+    revalidatePath('/admin/doctors');
+    return parseStringify(deletedDoctor);
   } catch (error) {
     console.error(error);
   }
