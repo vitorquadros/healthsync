@@ -3,6 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { Doctor } from '@/@types/appwrite.types';
+import DoctorModal from '../DoctorModal';
 
 export const doctorColumns: ColumnDef<Doctor>[] = [
   {
@@ -32,21 +33,9 @@ export const doctorColumns: ColumnDef<Doctor>[] = [
     id: 'actions',
     header: () => <div className="pl-4">Ações</div>,
     cell: ({ row: { original: data } }) => {
-      console.log(data);
       return (
         <div className="flex gap-1">
-          {/* <AppointmentModal
-            type="schedule"
-            patientId={data.patient.$id}
-            userId={data.userId}
-            appointment={data}
-          />
-          <AppointmentModal
-            type="cancel"
-            patientId={data.patient.$id}
-            userId={data.userId}
-            appointment={data}
-          /> */}
+          <DoctorModal doctor={data} type="update" />
         </div>
       );
     },
