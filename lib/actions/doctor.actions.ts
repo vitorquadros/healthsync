@@ -11,7 +11,8 @@ import {
   storage,
 } from '../appwrite.config';
 import { parseStringify } from '../utils';
-import { CreateDoctorParams } from '@/@types';
+import { CreateDoctorParams, UpdateDoctorParams } from '@/@types';
+import { revalidatePath } from 'next/cache';
 
 export const createDoctor = async (doctor: CreateDoctorParams) => {
   try {
@@ -47,6 +48,39 @@ export const getDoctorsList = async () => {
     );
 
     return parseStringify(doctors);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateDoctor = async ({
+  doctorId,
+  doctor,
+}: UpdateDoctorParams) => {
+  try {
+    const inputFile = InputFile.fromBlob(
+      doctor.avatar?.get('blobFile') as Blob,
+      doctor.avatar?.get('fileName') as string
+    );
+
+    const file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
+
+    // await storage.deleteFile(BUCKET_ID!, doctor.avatar?.get('$id') as string);
+
+    const updatedDoctor = await databases.updateDocument(
+      DATABASE_ID!,
+      DOCTOR_COLLECTION_ID!,
+      doctorId,
+      {
+        name: doctor.name,
+        avatar: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
+      }
+    );
+
+    if (!updatedDoctor) throw new Error('Doctor not found');
+
+    revalidatePath('/admin/doctors');
+    return parseStringify(updatedDoctor);
   } catch (error) {
     console.error(error);
   }
