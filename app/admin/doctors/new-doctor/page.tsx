@@ -7,7 +7,7 @@ export default async function NewDoctor() {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[860px] flex-1 justify-between">
-          <div className="flex flex-col gap-6 mb-12">
+          <div className="flex items-center gap-6 mb-12">
             <Link href="/admin/doctors">
               <Image
                 src="/assets/icons/arrow.svg"
