@@ -39,4 +39,5 @@ export interface Appointment extends Models.Document {
 export interface Doctor extends Models.Document {
   name: string;
   avatar: string;
+  avatarId: string;
 }

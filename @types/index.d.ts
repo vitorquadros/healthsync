@@ -23,6 +23,7 @@ declare interface CreateDoctorParams {
 
 declare interface UpdateDoctorParams {
   doctorId: string;
+  avatarId: string;
   doctor: CreateDoctorParams;
 }
 
