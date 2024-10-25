@@ -34,6 +34,10 @@ const DoctorsPage = async () => {
           <p className="text-dark-700">Gerencie os profissionais cadastrados</p>
         </section>
 
+        <Button type="button" className="shad-primary-btn self-start">
+          <Link href="/admin/doctors/new-doctor">Novo médico(a)</Link>
+        </Button>
+
         <DataTable data={doctors.documents} columns={doctorColumns} />
       </main>
     </div>
