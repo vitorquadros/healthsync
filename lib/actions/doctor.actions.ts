@@ -30,6 +30,7 @@ export const createDoctor = async (doctor: CreateDoctorParams) => {
       {
         name: doctor.name,
         avatar: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
+        avatarId: file?.$id || null,
       }
     );
 
@@ -55,6 +56,7 @@ export const getDoctorsList = async () => {
 
 export const updateDoctor = async ({
   doctorId,
+  avatarId,
   doctor,
 }: UpdateDoctorParams) => {
   try {
@@ -65,7 +67,7 @@ export const updateDoctor = async ({
 
     const file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
 
-    // await storage.deleteFile(BUCKET_ID!, doctor.avatar?.get('$id') as string);
+    await storage.deleteFile(BUCKET_ID!, avatarId);
 
     const updatedDoctor = await databases.updateDocument(
       DATABASE_ID!,
@@ -74,6 +76,7 @@ export const updateDoctor = async ({
       {
         name: doctor.name,
         avatar: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view?project=${PROJECT_ID}`,
+        avatarId: file?.$id || null,
       }
     );
 
