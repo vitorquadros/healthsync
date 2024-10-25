@@ -78,6 +78,7 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
       } else if (type === 'update' && doctor) {
         doctorData = {
           doctorId: doctor.$id,
+          avatarId: doctor.avatarId,
           doctor: {
             name,
             avatar: formData,
