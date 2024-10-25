@@ -83,8 +83,10 @@ export const PatientFormValidation = z.object({
   currentMedication: z.string().optional(),
   familyMedicalHistory: z.string().optional(),
   pastMedicalHistory: z.string().optional(),
-  identificationType: z.string().optional(),
-  identificationNumber: z.string().optional(),
+  identificationType: z.string(),
+  identificationNumber: z
+    .string()
+    .min(2, 'O número do documento deve ter pelo menos 2 caracteres'),
   identificationDocument: z
     .custom<File[]>()
     .refine((files) => files.length > 0, {
