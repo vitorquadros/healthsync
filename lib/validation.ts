@@ -27,12 +27,10 @@ export const DoctorFormValidation = z.object({
     .refine(
       (files) =>
         files.every((file) =>
-          ['image/png', 'image/jpg', 'image/jpeg', 'image/svg+xml'].includes(
-            file.type
-          )
+          ['image/png', 'image/jpg', 'image/jpeg'].includes(file.type)
         ),
       {
-        message: 'Apenas arquivos .png, .jpg, .jpeg e .svg são permitidos',
+        message: 'Apenas arquivos .png, .jpg e .jpeg são permitidos',
       }
     )
     .refine((files) => files.every((file) => file.size <= 10 * 1024 * 1024), {
@@ -87,7 +85,26 @@ export const PatientFormValidation = z.object({
   pastMedicalHistory: z.string().optional(),
   identificationType: z.string().optional(),
   identificationNumber: z.string().optional(),
-  identificationDocument: z.custom<File[]>().optional(),
+  identificationDocument: z
+    .custom<File[]>()
+    .refine((files) => files.length > 0, {
+      message: 'A imagem do documento é obrigatória.',
+    })
+    .refine((files) => files.length < 10, {
+      message: 'Apenas 10 imagens podem ser enviadas',
+    })
+    .refine(
+      (files) =>
+        files.every((file) =>
+          ['image/png', 'image/jpg', 'image/jpeg'].includes(file.type)
+        ),
+      {
+        message: 'Apenas arquivos .png, .jpg e .jpeg são permitidos',
+      }
+    )
+    .refine((files) => files.every((file) => file.size <= 10 * 1024 * 1024), {
+      message: 'O tamanho máximo permitido para o arquivo é 10 MB',
+    }),
   treatmentConsent: z
     .boolean()
     .default(false)
