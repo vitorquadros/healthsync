@@ -22,6 +22,11 @@ const FileUploader = ({ files, onChange, multiple = false }: Props) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple,
+    accept: {
+      'image/jpeg': [],
+      'image/png': [],
+      'image/jpg': [],
+    },
   });
 
   const areFilesImages = files
