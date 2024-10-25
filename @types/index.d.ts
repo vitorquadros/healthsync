@@ -15,6 +15,12 @@ declare interface CreateUserParams {
   email: string;
   phone: string;
 }
+
+declare interface CreateDoctorParams {
+  name: string;
+  avatar: FormData;
+}
+
 declare interface User extends CreateUserParams {
   $id: string;
 }
