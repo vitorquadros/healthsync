@@ -11,11 +11,16 @@ import { useEffect, useState } from 'react';
 import { DoctorFormValidation } from '@/lib/validation';
 import { useRouter } from 'next/navigation';
 import FileUploader from '../FileUploader';
-import { createDoctor, updateDoctor } from '@/lib/actions/doctor.actions';
+import {
+  createDoctor,
+  deleteDoctor,
+  updateDoctor,
+} from '@/lib/actions/doctor.actions';
 import { Doctor } from '@/@types/appwrite.types';
+import clsx from 'clsx';
 
 interface Props {
-  type?: 'create' | 'update';
+  type?: 'create' | 'update' | 'delete';
   doctor?: Doctor;
   setIsOpen?: (state: boolean) => void;
 }
@@ -66,6 +71,7 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
 
     try {
       let doctorData;
+
       if (type === 'create') {
         doctorData = {
           name,
@@ -75,7 +81,13 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
         const doctor = await createDoctor(doctorData);
 
         if (doctor) router.push('/admin/doctors');
-      } else if (type === 'update' && doctor) {
+
+        return;
+      }
+
+      if (!doctor) return;
+
+      if (type === 'update') {
         doctorData = {
           doctorId: doctor.$id,
           avatarId: doctor.avatarId,
@@ -92,6 +104,12 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
           form.reset();
         }
       }
+
+      if (type === 'delete') {
+        await deleteDoctor(doctor?.$id);
+
+        if (setIsOpen) setIsOpen(false);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -99,7 +117,12 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
     }
   }
 
-  const translatedAction = type === 'create' ? 'Cadastrar' : 'Atualizar';
+  const translatedAction =
+    type === 'create'
+      ? 'Cadastrar'
+      : type === 'delete'
+      ? 'Excluir permanentemente'
+      : 'Atualizar';
 
   return (
     <Form {...form}>
@@ -113,29 +136,41 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
           </section>
         )}
 
-        <CustomFormField
-          control={form.control}
-          fieldType={FormFieldType.INPUT}
-          name="name"
-          label="Nome completo"
-          placeholder="Mauricio Costa"
-          iconSrc="/assets/icons/user.svg"
-          iconAlt="Usuário"
-        />
+        {type !== 'delete' && (
+          <>
+            <CustomFormField
+              control={form.control}
+              fieldType={FormFieldType.INPUT}
+              name="name"
+              label="Nome completo"
+              placeholder="Mauricio Costa"
+              iconSrc="/assets/icons/user.svg"
+              iconAlt="Usuário"
+            />
 
-        <CustomFormField
-          fieldType={FormFieldType.SKELETON}
-          control={form.control}
-          name="avatar"
-          label="Foto de perfil"
-          renderSkeleton={(field) => (
-            <FormControl>
-              <FileUploader files={field.value} onChange={field.onChange} />
-            </FormControl>
-          )}
-        />
+            <CustomFormField
+              fieldType={FormFieldType.SKELETON}
+              control={form.control}
+              name="avatar"
+              label="Foto de perfil"
+              renderSkeleton={(field) => (
+                <FormControl>
+                  <FileUploader files={field.value} onChange={field.onChange} />
+                </FormControl>
+              )}
+            />
+          </>
+        )}
 
-        <SubmitButton isLoading={isLoading}>{translatedAction}</SubmitButton>
+        <SubmitButton
+          isLoading={isLoading}
+          className={clsx('w-full', {
+            'shad-primary-btn': type === 'create' || type === 'update',
+            'shad-delete-btn': type === 'delete',
+          })}
+        >
+          {translatedAction}
+        </SubmitButton>
       </form>
     </Form>
   );
