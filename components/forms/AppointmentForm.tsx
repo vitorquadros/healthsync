@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import CustomFormField from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getAppointmentSchema } from '@/lib/validation';
 import { FormFieldType } from '@/@types/formTypes';
 import { Form } from '../ui/form';
-import { Doctors } from '@/constants';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
 import { Status } from '@/@types';
@@ -18,7 +17,9 @@ import {
   createAppointment,
   updateAppointment,
 } from '@/lib/actions/appointment.actions';
-import { Appointment } from '@/@types/appwrite.types';
+import { Appointment, Doctor } from '@/@types/appwrite.types';
+import { getDoctorsList } from '@/lib/actions/doctor.actions';
+import Spinner from '../Spinner';
 
 interface Props {
   userId: string;
@@ -34,6 +35,8 @@ export function AppointmentForm(props: Props) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [isDoctorsLoading, setIsDoctorsLoading] = useState(false);
 
   const AppointmentFormValidation = getAppointmentSchema(type);
 
@@ -129,6 +132,23 @@ export function AppointmentForm(props: Props) {
       break;
   }
 
+  const hasDoctors = doctors && doctors.length > 0;
+
+  useEffect(() => {
+    if (type !== 'cancel') {
+      setIsDoctorsLoading(true);
+      getDoctorsList()
+        .then((doctors) => {
+          setDoctors(doctors.documents);
+        })
+        .finally(() => {
+          setIsDoctorsLoading(false);
+        });
+    }
+  }, [type]);
+
+  if (isDoctorsLoading) return <Spinner fullWidth />;
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
@@ -150,24 +170,31 @@ export function AppointmentForm(props: Props) {
               label="Médico(a)"
               placeholder="Selecione um médico(a)"
             >
-              {Doctors.map((doctor) => (
-                <SelectItem
-                  key={doctor.name}
-                  value={doctor.name}
-                  className="cursor-pointer"
-                >
-                  <div className="flex cursor-pointer items-center gap-2">
-                    <Image
-                      src={doctor.image}
-                      width={32}
-                      height={32}
-                      alt={doctor.name}
-                      className="rounded-full border border-dark-500"
-                    />
-                    <p>{doctor.name}</p>
-                  </div>
-                </SelectItem>
-              ))}
+              {!isDoctorsLoading && hasDoctors ? (
+                doctors.map((doctor) => (
+                  <SelectItem
+                    key={doctor.name}
+                    value={doctor.name}
+                    className="cursor-pointer"
+                  >
+                    <div className="flex cursor-pointer items-center gap-2">
+                      <Image
+                        src={doctor.avatar}
+                        width={32}
+                        height={32}
+                        alt={doctor.name}
+                        className="rounded-full border border-dark-500"
+                      />
+                      <p>{doctor.name}</p>
+                    </div>
+                  </SelectItem>
+                ))
+              ) : (
+                <p className="text-14-regular ml-2 py-2">
+                  Nenhum profissional encontrado. Por favor, entre em contato
+                  com a administração.
+                </p>
+              )}
             </CustomFormField>
 
             <CustomFormField

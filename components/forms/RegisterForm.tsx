@@ -14,7 +14,6 @@ import { registerPatient } from '@/lib/actions/patient.actions';
 import { User } from '@/@types';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import {
-  Doctors,
   GenderOptions,
   IdentificationTypes,
   PatientFormDefaultValues,
@@ -23,8 +22,14 @@ import { Label } from '../ui/label';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
 import FileUploader from '../FileUploader';
+import { Doctor } from '@/@types/appwrite.types';
 
-export function RegisterForm({ user }: { user: User }) {
+interface Props {
+  user: User;
+  doctors: Doctor[];
+}
+
+export function RegisterForm({ user, doctors }: Props) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -75,6 +80,8 @@ export function RegisterForm({ user }: { user: User }) {
       setIsLoading(false);
     }
   }
+
+  const hasDoctors = doctors && doctors.length > 0;
 
   return (
     <Form {...form}>
@@ -206,24 +213,31 @@ export function RegisterForm({ user }: { user: User }) {
           label="Médico(a) principal"
           placeholder="Selecione um médico(a)"
         >
-          {Doctors.map((doctor) => (
-            <SelectItem
-              key={doctor.name}
-              value={doctor.name}
-              className="cursor-pointer"
-            >
-              <div className="flex cursor-pointer items-center gap-2">
-                <Image
-                  src={doctor.image}
-                  width={32}
-                  height={32}
-                  alt={doctor.name}
-                  className="rounded-full border border-dark-500"
-                />
-                <p>{doctor.name}</p>
-              </div>
-            </SelectItem>
-          ))}
+          {hasDoctors ? (
+            doctors.map((doctor) => (
+              <SelectItem
+                key={doctor.name}
+                value={doctor.name}
+                className="cursor-pointer"
+              >
+                <div className="flex cursor-pointer items-center gap-2">
+                  <Image
+                    src={doctor.avatar}
+                    width={32}
+                    height={32}
+                    alt={doctor.name}
+                    className="rounded-full border border-dark-500"
+                  />
+                  <p>{doctor.name}</p>
+                </div>
+              </SelectItem>
+            ))
+          ) : (
+            <p className="text-14-regular ml-2 py-2">
+              Nenhum profissional encontrado. Por favor, entre em contato com a
+              administração.
+            </p>
+          )}
         </CustomFormField>
 
         <div className="flex flex-col gap-6 xl:flex-row">

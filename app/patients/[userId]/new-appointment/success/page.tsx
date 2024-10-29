@@ -1,12 +1,13 @@
 import { SearchParamProps } from '@/@types';
 import { Button } from '@/components/ui/button';
-import { Doctors } from '@/constants';
 import { getAppointment } from '@/lib/actions/appointment.actions';
 import { formatDateTime } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as Sentry from '@sentry/nextjs';
 import { getUser } from '@/lib/actions/patient.actions';
+import { getDoctorsList } from '@/lib/actions/doctor.actions';
+import { Doctor } from '@/@types/appwrite.types';
 
 const SuccessPage = async ({
   params: { userId },
@@ -15,10 +16,11 @@ const SuccessPage = async ({
   const appointmentId = (searchParams?.appointmentId as string) || '';
   const appointment = await getAppointment(appointmentId);
   const user = await getUser(userId);
+  const doctors = await getDoctorsList();
 
-  const doctor = Doctors.find(
-    (doc) => doc.name === appointment?.primaryPhysician
-  );
+  const doctor = doctors.documents.find(
+    (doc: Doctor) => doc.name === appointment?.primaryPhysician
+  ) as Doctor;
 
   Sentry.metrics.set('user_view_appointment-success', user.name);
 
@@ -58,7 +60,7 @@ const SuccessPage = async ({
           <div className="flex items-center gap-3">
             {doctor && (
               <Image
-                src={doctor.image}
+                src={doctor.avatar}
                 alt={doctor.name}
                 width={100}
                 height={100}
