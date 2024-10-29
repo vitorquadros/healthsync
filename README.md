@@ -95,6 +95,8 @@
 :warning: The passcode to access the admin page is <strong>123456</strong>.
 <br>
 :warning: The app may experience slower performance due to the use of the free version of Appwrite.
+<br>
+:warning: The SMS text function is limited due to the free version of Twilio. Messages can only be sent to phone numbers defined in the Twilio account.
 
 # :copyright: License
 
