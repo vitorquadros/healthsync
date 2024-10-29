@@ -15,6 +15,7 @@ export default function Home({ searchParams }: SearchParamProps) {
         <div className="sub-container max-w-[496px]">
           <Image
             src="/assets/icons/logo-full.svg"
+            priority
             height={1000}
             width={1000}
             alt="Logo"
@@ -41,6 +42,7 @@ export default function Home({ searchParams }: SearchParamProps) {
         unoptimized
         alt="Capa"
         className="side-img max-w-[50%]"
+        priority
       />
     </div>
   );
