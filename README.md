@@ -93,140 +93,115 @@
 <details>
 <summary style="font-size: 20px">Desktop</summary>
 
-  <details>
-  <summary style="font-size: 16px">Registration</summary>
-
 ### Step 1 - Register user
 
-  <img src="./github/images/register1.png">
+  <img src="./.github/images/register1.png">
 
 ### Step 2 - Register patient
 
-  <img src="./github/images/register2.png">
+  <img src="./.github/images/register2.png">
 
 ### Step 3 - Create appointment
 
-  <img src="./github/images/register3.png">
+  <img src="./.github/images/register3.png">
 
 ### Success
 
-  <img src="./github/images/success.png">
-  </details>
+  <img src="./.github/images/success.png">
 
-  <details>
-  <summary style="font-size: 16px">Admin</summary>
+### Enter Admin passcode
 
-### Enter passcode
-
-  <img src="./github/images/admin1.png">
+  <img src="./.github/images/admin1.png">
 
 ### Admin dashboard
 
-  <img src="./github/images/admin2.png">
+  <img src="./.github/images/admin2.png">
 
 ### Schedule appointment
 
-  <img src="./github/images/admin3.png">
+  <img src="./.github/images/admin3.png">
 
 ### Cancel appointment
 
-  <img src="./github/images/admin4.png">
+  <img src="./.github/images/admin4.png">
 
 ### Doctors dashboard
 
-  <img src="./github/images/doctors1.png">
+  <img src="./.github/images/doctors1.png">
 
 ### Create new doctor
 
-  <img src="./github/images/doctors2.png">
+  <img src="./.github/images/doctors2.png">
 
 ### Update existing doctor
 
-  <img src="./github/images/doctors3.png">
+  <img src="./.github/images/doctors3.png">
 
 ### Delete doctor
 
-  <img src="./github/images/doctors4.png">
-  </details>
+  <img src="./.github/images/doctors4.png">
 
-  <details>
-    <summary style="font-size: 16px">Errors</summary>
-    
-  ### 404
+### 404
 
-   <img src="./github/images/404.png">
-
-  </details>
+   <img src="./.github/images/404.png">
 
 </details>
 
 <details>
 <summary style="font-size: 20px">Mobile</summary>
 
-<details>
-  <summary style="font-size: 16px">Registration</summary>
-
 ### Step 1 - Register user
 
-  <img src="./github/images/register1-mobile.png">
+  <img src="./.github/images/register1-mobile.png">
 
 ### Step 2 - Register patient
 
-  <img src="./github/images/register2-mobile.png">
+  <img src="./.github/images/register2-mobile.png">
 
 ### Step 3 - Create appointment
 
-  <img src="./github/images/register3-mobile.png">
+  <img src="./.github/images/register3-mobile.png">
 
 ### Success
 
-  <img src="./github/images/success-mobile.png">
-  </details>
-
-  <details>
-  <summary style="font-size: 16px">Admin</summary>
-
+  <img src="./.github/images/success-mobile.png">
+ 
 ### Enter passcode
 
-  <img src="./github/images/admin1-mobile.png">
+  <img src="./.github/images/admin1-mobile.png">
 
 ### Admin dashboard
 
-  <img src="./github/images/admin2-mobile.png">
+  <img src="./.github/images/admin2-mobile.png">
 
 ### Schedule appointment
 
-  <img src="./github/images/admin3-mobile.png">
+  <img src="./.github/images/admin3-mobile.png">
 
 ### Cancel appointment
 
-  <img src="./github/images/admin4-mobile.png">
+  <img src="./.github/images/admin4-mobile.png">
 
 ### Doctors dashboard
 
-  <img src="./github/images/doctors1-mobile.png">
+  <img src="./.github/images/doctors1-mobile.png">
 
 ### Create new doctor
 
-  <img src="./github/images/doctors2-mobile.png">
+  <img src="./.github/images/doctors2-mobile.png">
 
 ### Update existing doctor
 
-  <img src="./github/images/doctors3-mobile.png">
+  <img src="./.github/images/doctors3-mobile.png">
 
 ### Delete doctor
 
-  <img src="./github/images/doctors4-mobile.png">
-  </details>
-
-  <details>
-    <summary style="font-size: 16px">Errors</summary>
+  <img src="./.github/images/doctors4-mobile.png">
     
   ### 404
 
-   <img src="./github/images/404-mobile.png">
+   <img src="./.github/images/404-mobile.png">
 
-  </details>
 </details>
 
 # :question: How to test
