@@ -147,7 +147,7 @@ export function RegisterForm({ user, doctors }: Props) {
             renderSkeleton={(field) => (
               <FormControl>
                 <RadioGroup
-                  className="flex h-11 gap-6 xl:justify-between"
+                  className="flex gap-6 flex-wrap"
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >

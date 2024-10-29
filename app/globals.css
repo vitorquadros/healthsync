@@ -259,7 +259,7 @@
   }
 
   .shad-otp-slot {
-    @apply text-36-bold justify-center flex border border-dark-500 rounded-lg size-16 gap-4 !important;
+    @apply lg:text-36-bold md:text-24-bold justify-center flex border border-dark-500 rounded-lg lg:size-16 md:size-10 gap-4 !important;
   }
 
   .shad-alert-dialog {

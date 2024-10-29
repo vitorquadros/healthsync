@@ -15,7 +15,7 @@ export const doctorColumns: ColumnDef<Doctor>[] = [
     header: 'Nome',
     cell: ({ row: { original: data } }) => {
       return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 mr-5">
           <Image
             src={data.avatar}
             alt={data.name}

@@ -18,11 +18,11 @@ const DoctorsPage = async () => {
             alt="Logo"
             height={32}
             width={162}
-            className="h-8 w-fit"
+            className="h-8 min-w-[100px]"
           />
         </Link>
 
-        <div className="flex gap-12 items-center">
+        <div className="ml-6 flex gap-12 items-center text-center text-16-semibold max-sm:text-14-regular max-sm:gap-6 max-[365px]:flex-col max-[365px]:gap-[10px]">
           <ActiveLink href="/admin/doctors" label="Médicos(as)" />
           <ActiveLink href="/admin" label="Admin Dashboard" />
         </div>
