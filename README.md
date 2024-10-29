@@ -91,6 +91,8 @@
 [You can test it by clicking here](https://healthsync-seven.vercel.app/)
 
 :warning: The passcode to access the admin page is <strong>123456</strong>.
+<br>
+:warning: The app may experience slower performance due to the use of the free version of Appwrite.
 
 # :copyright: License
 
