@@ -18,6 +18,7 @@ import {
 } from '@/lib/actions/doctor.actions';
 import { Doctor } from '@/@types/appwrite.types';
 import clsx from 'clsx';
+import Spinner from '../Spinner';
 
 interface Props {
   type?: 'create' | 'update' | 'delete';
@@ -29,6 +30,7 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isAvatarFileLoading, setIsAvatarFileLoading] = useState(false);
 
   const form = useForm<z.infer<typeof DoctorFormValidation>>({
     resolver: zodResolver(DoctorFormValidation),
@@ -50,9 +52,12 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
 
   useEffect(() => {
     if (!doctor) return;
-    createFileFromUrl(doctor.avatar, 'avatar').then((file) => {
-      form.setValue('avatar', [file]);
-    });
+    setIsAvatarFileLoading(true);
+    createFileFromUrl(doctor.avatar, 'avatar')
+      .then((file) => {
+        form.setValue('avatar', [file]);
+      })
+      .finally(() => setIsAvatarFileLoading(false));
   }, [doctor, form]);
 
   async function onSubmit({
@@ -123,6 +128,8 @@ export function DoctorForm({ type = 'create', doctor, setIsOpen }: Props) {
       : type === 'delete'
       ? 'Excluir permanentemente'
       : 'Atualizar';
+
+  if (isAvatarFileLoading) return <Spinner fullWidth />;
 
   return (
     <Form {...form}>
