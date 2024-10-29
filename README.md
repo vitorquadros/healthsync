@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">HealthSync</h1>
 
-## Getting Started
+<p align="center">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/vitorquadros/healthsync?color=darkgreen&style=plastic">
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/vitorquadros/healthsync?color=darkgreen&style=plastic">
+  <img alt="License" src="https://img.shields.io/github/license/vitorquadros/healthsync?color=darkgreen&style=plastic">
+</p>
 
-First, run the development server:
+> <p align="center">A web application for scheduling and managing patient appointments, designed to streamline the consultation process for hospitals.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h2 align="center">Content</h2>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p align="center">
+<a href="#rocket-features">Features</a>
+·
+<a href="#gear-technologies">Technologies</a>
+·
+<a href="#question-how-to-test">How to Test</a>
+·
+<a href="#copyright-license">License</a>
+</p>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# :rocket: Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### As user
 
-## Learn More
+- Create new appointments, providing personal and medical information
 
-To learn more about Next.js, take a look at the following resources:
+- Receive a SMS text when the appointment is confirmed or canceled
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### As admin
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Administrative panel to manage appointments and doctors
+  - Access by entering a passcode, which will be stored in cookies for future sessions
+  - Create new doctor
+  - Edit an existing doctor
+  - Delete a doctor
+  - Overview of appointment statuses, displaying the number of appointments for each status
+  - A list of appointments, each containing essential information such as the patient's name, doctor's name, status, and actions for managing the appointment
+  - Confirm an appointment, tagging as "Scheduled" and sending a SMS text to the patient
+  - Cancel an appointment, tagging as "Cancelled" and sending a SMS text to the patient
 
-## Deploy on Vercel
+# :gear: Technologies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Frontend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ReactJS](https://github.com/facebook/react) v18
+- [NextJS](https://github.com/vercel/next.js) v14.2.15
+- [TailwindCSS](https://github.com/tailwindlabs/tailwindcss)
+- [React Hook Form](https://github.com/react-hook-form/react-hook-form)
+- [Zod](https://github.com/colinhacks/zod)
+- [React Datepicker](https://github.com/Hacker0x01/react-datepicker)
+- [React Dropzone](https://github.com/react-dropzone/react-dropzone)
+- [React Phone Number Input](https://gitlab.com/catamphetamine/react-phone-number-input)
+- [Shadcn](https://github.com/shadcn/ui)
+
+### Backend and Database
+
+- [Appwrite](https://github.com/appwrite/appwrite)
+
+### Languages and Tools
+
+- [NodeJS](https://github.com/nodejs)
+- [Typescript](https://github.com/microsoft/TypeScript)
+- [VSCode](https://github.com/microsoft/vscode)
+- [ESLint](https://github.com/eslint/eslint)
+- [Prettier](https://github.com/prettier/prettier)
+
+### Monitoring and Messaging
+
+- [Sentry](https://github.com/getsentry/sentry)
+- [Twilio](https://github.com/twilio/twilio-node)
+
+### Deploy
+
+- [Vercel](https://github.com/vercel/vercel)
+
+### Documentation - not implemented yet
+
+- [Storybook](https://github.com/storybookjs/storybook)
+
+### Tests - not implemented yet
+
+- [Vitest](https://github.com/vitest-dev/vitest)
+- [React Testing Library](https://github.com/testing-library/react-testing-library)
+
+# :question: How to test
+
+### This project is deployed on Vercel
+
+[You can test it by clicking here](https://healthsync-seven.vercel.app/)
+
+:warning: The passcode to access the admin page is <strong>123456</strong>.
+
+# :copyright: License
+
+This project is under the [MIT license](./LICENSE).
+
+<p align="center">
+<sub>The design of this application was based on the work of <a href="https://www.linkedin.com/in/adrianhajdin/">Adrian Hajdin</a></sub>
+<br>
+<sub>Made with ❤︎ by <a href="https://github.com/vitorquadros">Vítor Quadros</a></sub>
+</p>
