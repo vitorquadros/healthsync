@@ -39,6 +39,7 @@ export default async function NewAppointment({
         src="/assets/images/appointment-img.png"
         height={1000}
         width={1000}
+        unoptimized
         alt="Consulta"
         className="side-img max-w-[390px] bg-bottom"
       />

@@ -17,7 +17,7 @@ export default function Home({ searchParams }: SearchParamProps) {
             src="/assets/icons/logo-full.svg"
             height={1000}
             width={1000}
-            alt="Paciente"
+            alt="Logo"
             className="mb-12 h-10 w-fit"
           />
 
@@ -35,10 +35,11 @@ export default function Home({ searchParams }: SearchParamProps) {
       </section>
 
       <Image
-        src="/assets/images/onboarding-img.png"
+        src="/assets/images/onboarding-img.jpg"
         height={1000}
         width={1000}
-        alt="Paciente"
+        unoptimized
+        alt="Capa"
         className="side-img max-w-[50%]"
       />
     </div>
