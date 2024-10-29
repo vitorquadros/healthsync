@@ -22,6 +22,8 @@
 
 # :rocket: Features
 
+:iphone: Mobile Ready
+
 ### As user
 
 - Create new appointments, providing personal and medical information
