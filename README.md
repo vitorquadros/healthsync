@@ -34,7 +34,7 @@
 
 ### As admin
 
-- Administrative panel to manage appointments and doctors
+- Administrative dashboard to manage appointments and doctors
   - Access by entering a passcode, which will be stored in cookies for future sessions
   - Create new doctor
   - Edit an existing doctor
